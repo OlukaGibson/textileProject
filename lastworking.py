@@ -57,6 +57,19 @@
 #     reduced_img = Image.fromarray(reduced_img_np)
 #     return reduced_img
 
+# def image_to_svg(image):
+#     img_np = np.array(image)
+#     height, width, _ = img_np.shape
+#     svg = ['<svg xmlns="http://www.w3.org/2000/svg" version="1.1" width="{}" height="{}">'.format(width, height)]
+    
+#     for y in range(height):
+#         for x in range(width):
+#             r, g, b = img_np[y, x]
+#             svg.append('<rect x="{}" y="{}" width="1" height="1" fill="rgb({}, {}, {})"/>'.format(x, y, r, g, b))
+    
+#     svg.append('</svg>')
+#     return ''.join(svg)
+
 # @app.route('/reduce_colors', methods=['POST'])
 # def reduce_colors_api():
 #     if 'image' not in request.files or 'n_colors' not in request.form:
@@ -97,11 +110,8 @@
 #     image = Image.open(image_file)
 #     reduced_img = reduce_to_specific_colors(image, colors)
 
-#     img_io = io.BytesIO()
-#     reduced_img.save(img_io, image.format)  # Save in the original format (JPEG or PNG)
-#     img_io.seek(0)
-
-#     return send_file(img_io, mimetype=f'image/{image.format.lower()}')
+#     svg_output = image_to_svg(reduced_img)
+#     return svg_output, 200, {'Content-Type': 'image/svg+xml'}
 
 # if __name__ == '__main__':
 #     app.run(debug=True)
