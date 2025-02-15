@@ -9,6 +9,10 @@ from sklearn.cluster import KMeans
 app = Flask(__name__)
 CORS(app)
 
+@app.route('/')
+def hello():
+    return "Hello, World!"
+
 @app.route('/image', methods=['POST'])
 def api():
     if 'image' not in request.files:
